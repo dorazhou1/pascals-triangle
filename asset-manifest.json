@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/pascals-triangle/static/css/main.3a084888.css",
+    "main.js": "/pascals-triangle/static/js/main.6fe93312.js",
+    "index.html": "/pascals-triangle/index.html",
+    "main.3a084888.css.map": "/pascals-triangle/static/css/main.3a084888.css.map",
+    "main.6fe93312.js.map": "/pascals-triangle/static/js/main.6fe93312.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3a084888.css",
+    "static/js/main.6fe93312.js"
+  ]
+}
