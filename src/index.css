@@ -1,0 +1,15 @@
+body {
+    padding: 10vh 0;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.info {
+    margin-bottom: 8vh;
+}
+
+.cell {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+}
