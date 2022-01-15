@@ -34,10 +34,12 @@ class Cell extends React.Component {
         const color = '#' + this.state.color.toString(16);
         console.log(this.state.value);
         return (
-        <div className='cell' style={{
-            backgroundColor: color,
-        }}>
-            {this.state.value}
+        <div className='cell'>
+            <div class="top" style = {{borderBottomColor: color}}></div>
+            <div class="middle"  style={{backgroundColor: color,}}>
+                {this.state.value}
+            </div>
+            <div class="bottom" style = {{borderTopColor: color}}></div>
         </div>);
     }
 }

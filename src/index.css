@@ -8,8 +8,27 @@ body {
     margin-bottom: 8vh;
 }
 
-.cell {
-    display: inline-block;
-    width: 45px;
-    height: 45px;
+.row {
+    display: flex;
+    justify-content: center;
+    margin: -16px;
+}
+
+.top {
+    width: 0;
+    border-bottom: 15px solid transparent;
+    border-left: 26px solid transparent;
+    border-right: 26px solid transparent;
+}
+
+.bottom {
+    width: 0;
+    border-top: 15px solid transparent;
+    border-left: 26px solid transparent;
+    border-right: 26px solid transparent;
+}
+
+.middle {
+    width: 52px;
+    height: 30px;
 }
