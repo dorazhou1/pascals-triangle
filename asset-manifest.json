@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/pascals-triangle/static/css/main.f71bd5ac.css",
-    "main.js": "/pascals-triangle/static/js/main.331be6cb.js",
+    "main.css": "/pascals-triangle/static/css/main.62c807cb.css",
+    "main.js": "/pascals-triangle/static/js/main.ad6e7115.js",
     "index.html": "/pascals-triangle/index.html",
-    "main.f71bd5ac.css.map": "/pascals-triangle/static/css/main.f71bd5ac.css.map",
-    "main.331be6cb.js.map": "/pascals-triangle/static/js/main.331be6cb.js.map"
+    "main.62c807cb.css.map": "/pascals-triangle/static/css/main.62c807cb.css.map",
+    "main.ad6e7115.js.map": "/pascals-triangle/static/js/main.ad6e7115.js.map"
   },
   "entrypoints": [
-    "static/css/main.f71bd5ac.css",
-    "static/js/main.331be6cb.js"
+    "static/css/main.62c807cb.css",
+    "static/js/main.ad6e7115.js"
   ]
 }
