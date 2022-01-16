@@ -1,34 +1,139 @@
 body {
-    padding: 10vh 0;
-    text-align: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+  display: flex;
+  justify-content: center;
+  padding: 10vh 0;
+  text-align: center;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .info {
-    margin-bottom: 8vh;
+  margin-bottom: 8vh;
 }
 
-.row {
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
+}
+
+.formVals{
     display: flex;
-    justify-content: center;
-    margin: -16px;
+    align-items: flex-end;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 10px;
+}
+
+input[type=text] {
+    height: 28px;
+    width: 130px;
+    border: 2px solid #ccc;
+    border-radius: 5px/5px;
+}
+input[type=submit] {
+    height: 34px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #2196f3;
+    color: #fff;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+input[type=submit]:hover {
+    background-color: #1b76c0;
+    cursor: pointer;
+}
+/* .item.toggle {
+    flex-direction: row;
+    align-items: flex-start;
+} */
+
+.row {
+  display: flex;
+  justify-content: center;
+  margin: -16.5px;
 }
 
 .top {
-    width: 0;
-    border-bottom: 15px solid transparent;
-    border-left: 26px solid transparent;
-    border-right: 26px solid transparent;
+  width: 0;
+  border-bottom: 15px solid transparent;
+  border-left: 26px solid transparent;
+  border-right: 26px solid transparent;
 }
 
 .bottom {
-    width: 0;
-    border-top: 15px solid transparent;
-    border-left: 26px solid transparent;
-    border-right: 26px solid transparent;
+  width: 0;
+  border-top: 15px solid transparent;
+  border-left: 26px solid transparent;
+  border-right: 26px solid transparent;
 }
 
 .middle {
-    width: 52px;
-    height: 30px;
+  width: 52px;
+  height: 30px;
+}
+
+/* Slider Style - w3schools*/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

@@ -3,21 +3,32 @@ import ReactDOM from 'react-dom';
 import './index.css';
 /*
 * TODO:
-* - adjust triangle size
-* - Make sure input is an int
-* - Add up down arrows to change value
-* - Change to immediately update on edit
-* - Color Themes?
+* - Color Themes
 */
 
 function Info(props) {
     return(
     <div className="form">
-        <label className='label'>Modulo:</label>
-        <input className='input' type="text" id="mod" name="mod" placeholder="3"></input>
-        <label className='label'>Number of rows:</label>
-        <input className='input' type="text" id="rows" name="rows" placeholder="10"></input>
-        <input className='btn' id="submit" type="submit" value="Submit" onClick={props.onClick}></input>
+        <div className='formVals'>
+            <div className='item'>
+                <label className='label'>Modulo:</label>
+                <input className='input' type="text" id="mod" name="mod" placeholder="4"></input>
+            </div>
+            <div className='item'>
+                <label className='label'>Number of rows:</label>
+                <input className='input' type="text" id="rows" name="rows" placeholder="12"></input>
+            </div>
+            <div className='item'>
+                <input className='btn' id="submit" type="submit" value="Submit" onClick={props.onClick}></input>
+            </div>
+        </div>
+        <div className='item toggle'>
+            <label className='label'>Show numbers</label>
+            <label className="switch">
+            <input type="checkbox" id="toggle" defaultChecked></input>
+            <span className="slider round" onClick={props.toggleNums}></span>
+        </label>
+        </div>
     </div> );
 }
 
@@ -27,20 +38,58 @@ class Cell extends React.Component {
         this.state = {
             value : this.props.value,
             color : Math.round(this.props.value%this.props.mod * parseInt("ffffff",16)/this.props.mod),
+            display : this.props.display,
         }
-        console.log(this.state.color)
     }
     render() {
-        const color = '#' + this.state.color.toString(16);
-        console.log(this.state.value);
+        let color = '#' + this.state.color.toString(16);
+        let val = this.props.display;
+        if(val > Number.MAX_SAFE_INTEGER)
+            color: parseInt("fffff",16);
+        if(Math.log(val)/Math.log(10) > 6) {
+            val = "";
+        }
         return (
         <div className='cell'>
-            <div class="top" style = {{borderBottomColor: color}}></div>
-            <div class="middle"  style={{backgroundColor: color,}}>
-                {this.state.value}
+            <div className="top" style = {{borderBottomColor: color}}></div>
+            <div className="middle"  style={{backgroundColor: color,}}>
+                {val}
             </div>
-            <div class="bottom" style = {{borderTopColor: color}}></div>
+            <div className="bottom" style = {{borderTopColor: color}}></div>
         </div>);
+    }
+}
+
+class Row extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            row: this.props.row,
+            display: this.props.display,
+            vals: this.props.vals,
+            mod: this.props.mod,
+        };
+    }
+    
+    renderCell(i, k) {
+        // console.log("key="+k+" "+this.props.mod.toString(10))    
+        
+        return (
+            <Cell 
+              key={k+" "+this.props.mod.toString(10)} 
+              value={i} 
+              mod={this.props.mod} 
+              display={this.props.display ? i : ""}
+            />
+        );
+    }
+    render() {
+        let ret = [];
+        for(let i = 0; i <= this.props.row; i++) {
+            let val = this.state.vals[i];
+            ret.push(this.renderCell(val, this.state.row*this.props.row+i));
+        }
+        return (<div className='row'> {ret} </div>)
     }
 }
 
@@ -50,6 +99,7 @@ class Triangle extends React.Component {
         this.state = {
             rows: this.props.rows,
             mod: this.props.mod,
+            display: this.props.display,
             binomials: [
                 [1],
                 [1,1],
@@ -70,6 +120,9 @@ class Triangle extends React.Component {
             nextRow[0] = 1;
             for(let i=1, prev=s-1; i<s; i++) {
                 nextRow[i] = binomials[prev][i-1] + binomials[prev][i];
+                if(binomials.length > 30) {
+                    nextRow[i] = binomials[prev][i-1] % this.props.mod + binomials[prev][i] % this.props.mod;
+                }
             }
             nextRow[s] = 1;
             binomials.push(nextRow);
@@ -78,17 +131,7 @@ class Triangle extends React.Component {
             binomials: binomials,
         })
     }
-    renderCell(i, k) {
-        console.log("key="+k+" "+this.props.mod.toString(10))
-        return (
-            <Cell 
-              key={k+" "+this.props.mod.toString(10)} value={i} mod={this.props.mod}
-            />
-        );
-    }
     renderRow(i) {
-        console.log(this.state.rows)
-        let row = [];
         let binomials = [];
         if(i < this.state.binomials.length) {
             binomials = this.state.binomials[i];
@@ -96,18 +139,22 @@ class Triangle extends React.Component {
             this.extendBinomial(i);
             binomials = this.state.binomials[i];
         }
-        for(let j = 0; j <= i; j++) {
-            let val = binomials[j];
-            row.push(this.renderCell(val, i*this.props.rows+j));
-        }
-        return (<div className='row'> {row} </div>)
+        // console.log(i+" "+this.state.mod+" "+binomials);
+        return (
+            <Row 
+              key={i}
+              row={i}
+              display = {i < 20 && this.props.display}
+              vals={binomials}
+              mod={this.props.mod} 
+            />
+        );
     }
     render() {
         let tri = [];
         for(let i = 0; i < this.props.rows; i++) {
             tri.push(this.renderRow(i));
         }
-        console.log(tri);
         return (<div className="tri">
             {tri}
         </div>);
@@ -118,29 +165,34 @@ class Screen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rows: 11,
-            mod: 7,
+            rows: 12,
+            mod: 4,
+            display: true,
         }
-
     }
     handleClick() {
-        const rows = parseInt(document.getElementById("rows").value);
-        const mod = parseInt(document.getElementById("mod").value);
-        this.setState({
-            rows: rows,
-            mod: mod,
-        }, () => {console.log(rows+" "+this.state.rows)});
-        
+        const rowsVal = document.getElementById("rows").value;
+        const modVal = document.getElementById("mod").value
+        const rows = parseInt(rowsVal);
+        const mod = parseInt(modVal);
+        if(rowsVal != "" && rows == rowsVal)
+            this.setState({rows: rows})
+        if(modVal != "" && mod == modVal)
+            this.setState({mod: mod})
+    }
+    toggleNums() {
+        let onOff = document.getElementById("toggle").checked;
+        this.setState({display: !onOff});
     }
     render() {
         return(
         <div className="pascals-triangle">
             <h1>Pascal's Triangle Modulo Patterns</h1>
             <div className="info">
-                <Info onClick={() => this.handleClick()}/>
+                <Info onClick={() => this.handleClick()} toggleNums={() => this.toggleNums()}/>
             </div>
             <div className="triangle">
-                <Triangle rows={this.state.rows} mod={this.state.mod} />
+                <Triangle rows={this.state.rows} mod={this.state.mod} display={this.state.display} />
             </div>
         </div>);
     }
