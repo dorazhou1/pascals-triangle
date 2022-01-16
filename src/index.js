@@ -12,11 +12,11 @@ function Info(props) {
         <div className='formVals'>
             <div className='item'>
                 <label className='label'>Modulo:</label>
-                <input className='input' type="text" id="mod" name="mod" placeholder="4"></input>
+                <input className='input' type="number" id="mod" name="mod" placeholder="4"></input>
             </div>
             <div className='item'>
                 <label className='label'>Number of rows:</label>
-                <input className='input' type="text" id="rows" name="rows" placeholder="12"></input>
+                <input className='input' type="number" id="rows" name="rows" placeholder="12"></input>
             </div>
             <div className='item'>
                 <input className='btn' id="submit" type="submit" value="Submit" onClick={props.onClick}></input>
